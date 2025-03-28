@@ -12,15 +12,13 @@ export class CartService {
   private authId=localStorage.getItem('userId');
   addToCart(id:string,cart:any):Observable<any>{
    return this.http.post(`${this.dbUrl}/cart/${this.authId}.json`,{
-      userId:this.authId,
-      cart:{id,...cart}
+      cart:{...cart}
     })
-
   }
   
    getCart():Observable<any>{
-    return this.http.get<{[key:string]:any}>(`${this.dbUrl}/cart.json`)
+    return this.http.get<{[key:string]:any}>(`${this.dbUrl}/cart/${this.authId}.json`)
          .pipe(map (data=> data?Object.keys(data).map(key=>({id:key,...data[key]})):[]
-         ))
+         ))     
    }
 }
