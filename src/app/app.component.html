@@ -7,11 +7,30 @@
         [routerLinkActiveOptions]="{ exact: true }"
         >Auth</a
       >
-      <a routerLink="/home" routerLinkActive="active">Home</a>
-      <a routerLink="/cart" routerLinkActive="active">Cart</a>
-      <a routerLink="/order" routerLinkActive="active">Order</a>
-      <a routerLink="/admin" routerLinkActive="active">Inventory</a>
-      <a routerLink="/orderDetails" routerLinkActive="active">Order Details</a>
+      <a
+        routerLink="/home"
+        *ngIf="!isAdmin && isLoggedIn"
+        routerLinkActive="active"
+        >Home</a
+      >
+      <a
+        routerLink="/cart"
+        *ngIf="!isAdmin && isLoggedIn"
+        routerLinkActive="active"
+        >Cart</a
+      >
+      <a
+        routerLink="/order"
+        *ngIf="!isAdmin && isLoggedIn"
+        routerLinkActive="active"
+        >Order</a
+      >
+      <a routerLink="/admin" *ngIf="isAdmin" routerLinkActive="active"
+        >Inventory</a
+      >
+      <a routerLink="/orderDetails" *ngIf="isAdmin" routerLinkActive="active"
+        >Order Details</a
+      >
       <a class="btn btn-danger" (click)="logout()">Logout</a>
     </div>
   </div>
