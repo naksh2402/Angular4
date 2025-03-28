@@ -1,1 +1,94 @@
-<p>inventory works!</p>
+<div class="conatainer">
+  <div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+      <h2>Inventory</h2>
+      <div class="temp">
+        <h3>Add Products</h3>
+        <form (ngSubmit)="onSubmit(productForm)" #productForm="ngForm">
+          <label for="name">Name :</label>
+          <input
+            type="text"
+            placeholder="name"
+            name="name"
+            [(ngModel)]="newProductName"
+          />
+          <label for="description">Description :</label>
+          <input
+            type="text"
+            placeholder="=description"
+            [(ngModel)]="newProductDescription"
+            name="description"
+          />
+          <label for="price">Price :$</label>
+          <input
+            type="text"
+            placeholder="price"
+            [(ngModel)]="newProductPrice"
+            name="price"
+          />
+          <label for="img">Image URL :</label>
+          <input
+            type="text"
+            placeholder="img"
+            [(ngModel)]="newProductImage"
+            name="img"
+          />
+          <p>Products :{{ finalCounter() }}</p>
+          <button type="submit">ADD Product</button>
+        </form>
+        <div class="counter">
+          <button class="btn btn-primary" (click)="increment()">+</button>
+          <p id="counter-output">{{ this.counter() }}</p>
+          <button class="btn btn-danger" (click)="decrement()">-</button>
+        </div>
+      </div>
+
+      <div class="display-data">
+        <div class="row">
+          <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <ul class="form-control">
+              <li *ngFor="let pro of Products">
+                <strong>{{ pro.product.name }}</strong
+                >-- {{ pro.product.description }} <strong> Price </strong>:{{
+                  pro.product.price
+                }}
+                <button (click)="editProject(pro)">Edit</button>
+                <button (click)="deleteProject(pro.id)">Delete</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit dialog box -->
+      <div *ngIf="selectedProject" class="edit-task-form">
+        <h3>Edit Task</h3>
+        <input
+          type="text"
+          [(ngModel)]="selectedProject.name"
+          placeholder="Name"
+          name="name"
+        />
+        <input
+          [(ngModel)]="selectedProject.description"
+          placeholder="Description"
+          name="description"
+        />
+        <input
+          type="text"
+          [(ngModel)]="selectedProject.price"
+          placeholder="Price"
+          name="price"
+        />
+        <input
+          type="text"
+          [(ngModel)]="selectedProject.img"
+          placeholder="Img"
+          name="img"
+        />
+        <button (click)="updateTask(selectedProject)">Update Task</button>
+        <button (click)="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

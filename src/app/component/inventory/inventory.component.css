@@ -1,0 +1,10 @@
+.counter{
+    display: flex;
+    margin: 2px;
+    align-items: center;
+}
+.counter p{
+ margin: 0 2px;
+ padding: auto;
+
+}

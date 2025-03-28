@@ -19,9 +19,7 @@ export class AppComponent implements OnInit {
       // this.isAdmin = localStorage.getItem('role')==='admin'
       // this.isUser = user?.role === 'user';
       console.log(this.isAdmin,this.isLoggedIn,this.isUser);
-    });
-    // localStorage.getItem('role')==="admin"?this.isAdmin=true:this.isAdmin=false;
-    //       console.log(this.isAdmin,this.isLoggedIn,this.isUser);
+    });;
 
   }
   logout(){

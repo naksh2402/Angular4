@@ -1,1 +1,31 @@
-<p>home works!</p>
+<div class="conatainer">
+  <div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+      <ul class="">
+        <li class="product" *ngFor="let data of UserProducts">
+          <strong> {{ data.product.name }} </strong>-
+          {{ data.product.description }}
+          <img src="{{ data.product.img }}" alt="{{ data.product.name }} " />
+          <strong>Price : {{ data.product.price }}</strong>
+          <!-- <form (ngSubmit)="onSubmit(cart, data.id)" #cart="ngForm"> -->
+          <input
+            width="200px"
+            type="number"
+            placeholder="Enter qty :"
+            name="qty"
+            [(ngModel)]="qty"
+          />
+          <button (click)="onSubmit(data.product, data.id)">Add to cart</button>
+          <!-- </form> -->
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- <div class="counter">
+            <button class="btn btn-primary" *ngIf="" (click)="increment()">
+              +
+            </button>
+            <p id="counter-output">{{ this.prodCounter() }}</p>
+            <button class="btn btn-danger" (click)="decrement()">-</button>
+          </div> -->

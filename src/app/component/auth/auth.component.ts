@@ -60,11 +60,13 @@ onSubmit(form:NgForm){
           console.log('Signup successful via email:', response);
           // localStorage.setItem('role','user');
           const userId = response.localId;
-          const userData = { email: this.email, phone: this.phone, name:this.name,createdAt: new Date().toISOString(),role:"user"};
+          const userData = {email: this.email, phone: this.phone, name:this.name,createdAt: new Date().toISOString(),role:"user"};
 
           // For signup, we add the user record only once
           this.userService.addUser(userId, userData).subscribe(
-            (res:any) => console.log('User record added successfully:', res),
+            (res:any) => {
+              localStorage.setItem('userId',JSON.stringify(userId));
+              console.log('User record added successfully:', res)},
             (err:any) => console.error('Error adding user record:', err)
           );
           alert('Signup Successful! Please log in. ');

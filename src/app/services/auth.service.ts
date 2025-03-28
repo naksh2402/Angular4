@@ -39,7 +39,8 @@ export class AuthService {
  }
 
  getCurrentUser(){
-  return this.currentUserSubject.value;
+  return localStorage.getItem('currentuser');
+  // return this.currentUserSubject.value;
  }
  logout(){
   localStorage.removeItem('currentuser');
