@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'E-commerce';
+  logout(){
+    // localStorage.removeItem('currentuser');
+  }
 }
