@@ -14,7 +14,7 @@ export class AuthService {
   $currentUser=this.currentUserSubject.asObservable();
 
   constructor(private http:HttpClient,private router:Router) {
-     const savedUser = localStorage.getItem('currentUser');
+     const savedUser = localStorage.getItem('currentuser');
     if (savedUser) {
       this.currentUserSubject.next(JSON.parse(savedUser));
     }

@@ -1,31 +1,52 @@
-<div class="conatainer">
-  <div class="row">
-    <div class="col-xs-12 col-md-6 col-md-offset-3">
-      <ul class="">
-        <li class="product" *ngFor="let data of UserProducts">
-          <strong> {{ data.product.name }} </strong>-
-          {{ data.product.description }}
-          <img src="{{ data.product.img }}" alt="{{ data.product.name }} " />
-          <strong>Price : {{ data.product.price }}</strong>
-          <!-- <form (ngSubmit)="onSubmit(cart, data.id)" #cart="ngForm"> -->
-          <input
-            width="200px"
-            type="number"
-            placeholder="Enter qty :"
-            name="qty"
-            [(ngModel)]="qty"
-          />
-          <button (click)="onSubmit(data.product, data.id)">Add to cart</button>
-          <!-- </form> -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-md-8">
+      <h2 class="text-center">Products</h2>
+      <ul class="list-group">
+        <li
+          class="list-group-item product"
+          *ngFor="let product of UserProducts"
+        >
+          <div
+            class="d-flex flex-column flex-md-row justify-content-between align-items-center"
+          >
+            <div class="temp">
+              <div class="product-info">
+                <h3>
+                  <strong> {{ product.name }}</strong>
+                </h3>
+                <p>{{ product.description }}</p>
+                <p><strong>Price:</strong> ${{ product.price }}</p>
+                <p><strong>Available:</strong> {{ product.quantity }}</p>
+              </div>
+              <div class="product-image mb-2 mb-md-0">
+                <img
+                  [src]="product.img"
+                  [alt]="product.name"
+                  class="img-fluid"
+                  style="max-width: 150px"
+                />
+              </div>
+            </div>
+            <div class="product-action text-center">
+              <div class="mb-2 inpu1">
+                <label for="number">Qty:</label>
+                <input
+                  type="number"
+                  class=""
+                  placeholder="Qty"
+                  [(ngModel)]="qty[product.id]"
+                  min="1"
+                  [max]="product.quantity"
+                />
+              </div>
+              <button class="btn btn-success" (click)="addToCart(product)">
+                Add to Cart
+              </button>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
   </div>
 </div>
-<!-- <div class="counter">
-            <button class="btn btn-primary" *ngIf="" (click)="increment()">
-              +
-            </button>
-            <p id="counter-output">{{ this.prodCounter() }}</p>
-            <button class="btn btn-danger" (click)="decrement()">-</button>
-          </div> -->

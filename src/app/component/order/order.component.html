@@ -1,1 +1,29 @@
-<p>order works!</p>
+<div class="container">
+  <h2 class="text-center">Your Orders</h2>
+  <div *ngIf="orders.length === 0" class="text-center">
+    <p>No orders found.</p>
+  </div>
+  <ul class="list-group" *ngIf="orders.length > 0">
+    <li
+      class="list-group-item"
+      *ngFor="let order of orders"
+      style="margin-bottom: 5px"
+    >
+      <div>
+        <strong>Order ID:</strong> {{ order.id }} <br />
+        <strong>Date:</strong> {{ order.createdAt | date : "short" }} <br />
+        <strong>Total Amount:</strong> ${{ order.totalAmount }} <br />
+        <strong>Status:</strong> {{ order.status }}
+      </div>
+      <hr />
+      <div>
+        <strong>Items:</strong>
+        <ul>
+          <li *ngFor="let item of order.items">
+            {{ item.name }} - Qty: {{ item.qty }} - ${{ item.totalValue }}
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>

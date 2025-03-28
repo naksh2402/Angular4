@@ -9,9 +9,11 @@ import { map, Observable } from 'rxjs';
 export class ProductService {
   private dbUrl=environment.firebaseConfig.dbUrl;
   constructor(private http:HttpClient) {}
+
    addProduct(product:Product):Observable<any>{
-    return this.http.post(`${this.dbUrl}/products.json`,{product});
+    return this.http.post(`${this.dbUrl}/products.json`,product);
    }
+
    getProducts():Observable<Product[]>{
     return this.http.get<{[key:string]:Product}>(`${this.dbUrl}/products.json`)
     .pipe(map (data=> data?Object.keys(data).map(key=>({id:key,...data[key]})):[]
@@ -19,15 +21,16 @@ export class ProductService {
    }
 
    deleteProject(id:string): Observable<any>{
-    console.log("del",id);
+    console.log("deleleting this project -id :",id);
     return this.http.delete(`${this.dbUrl}/products/${id}.json`);
    }
-   updateTask(product:any):Observable<any>{
+   updateTask(product:Product):Observable<any>{
     if(!product.id){
       throw new Error('Product is not there for update.');
     }
-    console.log(product.id);
-    return this.http.patch(`${this.dbUrl}/products/${product.id}.json`,product);
+    const updatedData = {  ...product};
+    delete updatedData.id;
+    return this.http.patch(`${this.dbUrl}/products/${product.id}.json`,updatedData);
    }
 
 }

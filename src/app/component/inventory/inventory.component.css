@@ -1,10 +1,5 @@
-.counter{
-    display: flex;
+.qty{
+    width: 15%;
+    background-color: beige;
     margin: 2px;
-    align-items: center;
-}
-.counter p{
- margin: 0 2px;
- padding: auto;
-
 }

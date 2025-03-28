@@ -1,22 +1,26 @@
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-md-6 col-md-offset-3">
-      <ul>
-        <li *ngFor="let data of cartData">
-          <strong>{{ data.cart.name }}</strong>
-          <br />
-          <strong>Quantity Ordered:</strong> {{ data.cart.qty }}
-          <br />
-          <strong>Amount :{{ data.cart.totalValue }}</strong>
-          <br />
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-md-8">
+      <h2 class="text-center">Your Cart</h2>
+      <ul class="list-group mb-3">
+        <li class="list-group-item" *ngFor="let item of cartData">
+          <div>
+            <strong>{{ item.name }}</strong>
+            <br />
+            <span>Quantity Ordered: {{ item.qty }}</span>
+            <br />
+            <span>Amount: ${{ item.totalValue }}</span>
+          </div>
         </li>
       </ul>
-      <button (click)="totalData()">Get Final Amount</button>
-      <strong>Final Amount :{{ total }}</strong>
-
-      <button class="btn btn-danger" (click)="placeOrder()">
-        Place Order !
-      </button>
+      <div class="text-center mb-3">
+        <strong>Final Amount: ${{ finalAmount }}</strong>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-danger" (click)="placeOrder()">
+          Place Order!
+        </button>
+      </div>
     </div>
   </div>
 </div>

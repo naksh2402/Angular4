@@ -1,11 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { Component, computed, OnInit, signal } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { Product } from 'src/app/models/products';
-import { AuthService } from 'src/app/services/auth.service';
-import { CartService } from 'src/app/services/cart.service';
+import { Component, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/services/home.service';
-import { ProductService } from 'src/app/services/product.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -13,62 +8,51 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  UserProducts:any[]=[];
-  up="";
-  down="";
-  qty=1;
-  private availabeQty:number=0;
-   currentUser: any;
-  constructor(private homeSer:HomeService,private cartService:CartService,private authServ:AuthService){}
+  UserProducts: any[] = [];
+  qty: { [id: string]: number } = {};
+
+  constructor(
+    private homeService: HomeService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
-  console.log(localStorage.getItem('userId'));
-      this.fetchProducts();
+    this.fetchProducts();
   }
 
-
-//   //signalss
-//    prodCounter=signal(0);
-//    finalCounter=computed(()=>this.prodCounter());
-//   //  updatedCounter=signal
-  
-//   increment(){
-//     this.prodCounter.update((old:any)=>{
-//      return old=old+1;
-//   });
-// }
-  
-//   decrement(){
-//      this.prodCounter.update((old:any)=>{
-//      return old=old-1;
-//   })
-// }
-  
-fetchProducts(){
-  this.homeSer.getProducts().subscribe((data)=>{
-    this.UserProducts=data;
-    this.availabeQty=data.product;
-    console.log(data);
-  })
-}
-fetchQuantity(){
-
-}
-// data:NgForm
-onSubmit(data:any,id:string){
-  if(this.qty<1 || this.qty>10){
-    alert("Invalid product selection");
-    return;
+  fetchProducts() {
+    this.homeService.getProducts().subscribe(
+      (data) => {
+        this.UserProducts = data;
+        this.UserProducts.forEach(product => {
+          //setting def to 1
+          this.qty[product.id] = 1;
+        });
+      },
+      (error) => console.error("Error fetching products", error)
+    );
   }
-  const cartValue={
-    name:data.name,
-    price:data.price,
-    img:data.img,
-    qty:this.qty,
-    totalValue:this.qty*data.price,
+
+  addToCart(product: any) {
+    const selectedQty = this.qty[product.id] || 1;
+    // Validatinge quantity
+    if (selectedQty < 1 || selectedQty > parseInt(product.quantity)) {
+      alert("Invalid product quantity");
+      return;
+    }
+    const cartValue = {
+      name: product.name,
+      price: product.price,
+      img: product.img,
+      qty: selectedQty,
+      totalValue: selectedQty * parseFloat(product.price)
+    };
+    this.cartService.addToCart( cartValue).subscribe(
+      (data) => {
+        console.log("Added to cart", data);
+        alert("Product added to cart!");
+      },
+      (error) => console.error("Error adding to cart", error)
+    );
   }
-  this.cartService.addToCart(id,cartValue).subscribe((data)=>{
-    console.log(data);
-  })
-}
 }

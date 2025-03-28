@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container auth">
   <form (ngSubmit)="onSubmit(authForm)" #authForm="ngForm">
     <label for="email">Email :</label>
     <input
@@ -6,11 +6,18 @@
       name="email"
       placeholder="Enter email :"
       [(ngModel)]="email"
+      required
     />
 
     <label for="Password :">Password :</label>
-    <input type="password" name="password" placeholder="Enter Password :"
-    [(ngModel)]="password" minlength="6" required= />
+    <input
+      type="password"
+      name="password"
+      placeholder="Enter Password :"
+      [(ngModel)]="password"
+      minlength="6"
+      required
+    />
 
     <div class="signup" *ngIf="!isLoginMode">
       <label for="Name :">Name :</label>
@@ -29,6 +36,7 @@
         placeholder="Enter Phone :"
         [(ngModel)]="phone"
         minlength="8"
+        pattern="[0-9]{8,}"
         required
       />
 
@@ -39,7 +47,7 @@
         placeholder="Enter Address :"
         [(ngModel)]="address"
       />
-
+      <br />
       <label for="PinCode :">PinCode :</label>
       <input
         type="text"
@@ -59,4 +67,21 @@
       }}
     </button>
   </form>
+  <div *ngIf="isLoginMode" class="sample">
+    <p><strong>Sample data to login:</strong></p>
+    <ul>
+      <li>
+        <strong>Email:</strong>test@this.admin.com
+        <strong>Password:</strong> 784512 <strong>Role: Admin</strong>
+      </li>
+      <li>
+        <strong>Email:</strong>bob.user@example.com
+        <strong>Password:</strong> 123456 <strong>Role: User</strong>
+      </li>
+      <li>
+        <strong>Email:</strong>nbbhatia56@gmail.com
+        <strong>Password:</strong> 111111 <strong>Role: User</strong>
+      </li>
+    </ul>
+  </div>
 </div>

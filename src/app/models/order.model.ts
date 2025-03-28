@@ -1,7 +1,8 @@
 export interface Order{
-    id?:string,
-    name:string,
-    date:string,
-    place:string,
+     id?: string;
+  userId: string;
+  items: any[];
+  totalAmount: number;
     status:'Placed' |'Processing' |'On the way'|'Delivered';
+  createdAt: string; 
 }

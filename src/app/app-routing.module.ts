@@ -6,14 +6,16 @@ import { CartComponent } from './component/cart/cart.component';
 import { OrderComponent } from './component/order/order.component';
 import { InventoryComponent } from './component/inventory/inventory.component';
 import { OrderDetailsComponent } from './component/order-details/order-details.component';
+import { UserAuthGuard } from './gaurds/user.gaurd';
+import { AdminGaurd } from './gaurds/admin.gaurd';
 
 const routes: Routes = [
-  {path:"auth",component:AuthComponent},
-  {path:"home",component:HomeComponent},
-  {path:"cart",component:CartComponent  },
-  {path:"order",component:OrderComponent},
-  {path:"admin",component:InventoryComponent},
-  {path:"orderDetails",component:OrderDetailsComponent},
+  {path:"auth",component:AuthComponent },
+  {path:"home",component:HomeComponent ,canActivate:[UserAuthGuard]},
+  {path:"cart",component:CartComponent  ,canActivate:[UserAuthGuard]},
+  {path:"order",component:OrderComponent ,canActivate:[UserAuthGuard]},
+  {path:"admin",component:InventoryComponent ,canActivate:[AdminGaurd]},
+  {path:"orderDetails",component:OrderDetailsComponent ,canActivate:[AdminGaurd]},
   {path:"**",redirectTo:'/auth',},
 ];
 

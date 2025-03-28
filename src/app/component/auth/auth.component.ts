@@ -32,11 +32,12 @@ onSubmit(form:NgForm){
     if(this.email===this.adminEmail && this.password===this.adminPass){
         localStorage.setItem('role',"admin");
         this.authService.setCurrentUser({role:"admin"});
+      alert("Admin Logged In");
         this.router.navigate(['/admin']);
       }else{
     this.authService.login(this.email,this.password).subscribe((response)=>{
-      // check for admin
-          this.authService.setCurrentUser(response);
+         
+      this.authService.setCurrentUser(response);
        const userId = response.localId; // Firebase returns a 'localId' as the user id
        localStorage.setItem('role','user');
        this.userService.getUser(userId).subscribe(
@@ -46,11 +47,13 @@ onSubmit(form:NgForm){
           alert('Login Successful');
           },
           (error:any) => {
+            alert("Login Failed !Please try again.");
           console.error('Error fetching user data:', error);
-          alert("Login Failed ");
           }
-        );
-      }
+        )       
+      }, (err:any)=>{
+          alert("Invalid Credentials!.");
+        }
       )
   }
 }else{
