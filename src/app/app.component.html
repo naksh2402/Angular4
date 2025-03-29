@@ -31,7 +31,9 @@
       <a routerLink="/orderDetails" *ngIf="isAdmin" routerLinkActive="active"
         >Order Details</a
       >
-      <button class="btn btn-danger" (click)="logout()">Logout</button>
+      <button class="btn btn-danger" *ngIf="isLoggedIn" (click)="logout()">
+        Logout
+      </button>
     </div>
   </div>
   <div class="row">
