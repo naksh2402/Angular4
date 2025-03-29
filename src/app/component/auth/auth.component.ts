@@ -40,6 +40,8 @@ onSubmit(form:NgForm){
       this.authService.setCurrentUser(response);
        const userId = response.localId; // Firebase returns a 'localId' as the user id
        localStorage.setItem('role','user');
+       localStorage.setItem('userId',JSON.stringify(userId));
+
        this.userService.getUser(userId).subscribe(
           (userData: any) => {
           const fullUser = { ...response, ...userData };
